@@ -1,14 +1,26 @@
 import faker from "faker";
 
-let getRandomNumber = () => {
+const mount = (el) => {
+  let getRandomNumber = () => {
     let randomNumber = faker.random.number({
-        min: 10,
-        max: 50,
+      min: 10,
+      max: 50,
     });
 
     return randomNumber;
+  };
+
+  let cartDetails = `you have ${getRandomNumber()} items in the cart`;
+
+  el.innerHTML = cartDetails;
 };
 
-document.querySelector(
-    "#dev-cart"
-).innerHTML = `you have ${getRandomNumber()} item in the cart`;
+if (process.env.NODE_ENV === "development") {
+  const el = document.querySelector("#remote-cart");
+
+  if (el) {
+    mount(el);
+  }
+}
+
+export { mount };
